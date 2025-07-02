@@ -42,7 +42,6 @@ public class RegisterTest {
         // Прихраниваем токен для последующей чистки в конце тестов
         token = registerResponse.path("accessToken");
         // Запуск ChromeDriver
-        System.setProperty("webdriver.chrome.driver", "/Users/leanbre/Downloads/chromedriver-mac-arm64/chromedriver");
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
     }
