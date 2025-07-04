@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,7 +35,7 @@ public class MainPage {
     }
 
     // Действия на странице
-    // Открытие основной страницы
+    @Step("Открытие основной страницы")
     public void openPage() {
         webDriver.get(BASE_URL);
         // Дожидаемся появления кнопки с "Войти в аккаунт"
@@ -42,7 +43,7 @@ public class MainPage {
                 .until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
-    // Нажатие на кнопку "Войти в аккаунт"
+    @Step("Нажатие на кнопку 'Войти в аккаунт'")
     public void logInButtonClick() {
         // Дожидаемся появления кнопки с "Войти в аккаунт"
         new WebDriverWait(webDriver, 5)
@@ -50,50 +51,50 @@ public class MainPage {
         webDriver.findElement(LOGIN_BUTTON).click();
     }
 
-    // Нажатие на кнопку "Личный кабинет"
+    @Step("Нажатие на кнопку 'Личный кабинет'")
     public void personalCabinetButtonClick() {
         webDriver.findElement(PERSONAL_CABINET_BUTTON).click();
     }
 
-    // Получить текст элемента кнопки "Корзина", для проверки успешности логина
+    @Step("Получить текст элемента кнопки 'Корзина', для проверки успешности логина")
     public String getBasketButtonText() {
         return webDriver.findElement(BASKET_CONTAINER_BUTTON).getText();
     }
 
-    // Нажатие по вкладке "Начинки"
+    @Step("Нажатие по вкладке 'Начинки'")
     public void fillingsTabClick() {
         webDriver.findElement(FILLINGS_TAB).click();
         waitForScroll(2);
     }
 
-    // Нажатие по вкладке "Булки"
+    @Step("Нажатие по вкладке 'Булки'")
     public void bunsTabClick() {
         webDriver.findElement(BUNS_TAB).click();
         waitForScroll(0);
     }
 
-    // Нажатие по вкладке "Соусы"
+    @Step("Нажатие по вкладке 'Соусы'")
     public void saucesTabClick() {
         webDriver.findElement(SAUCES_TAB).click();
         waitForScroll(1);
     }
 
-    // Получение локации начинок
+    @Step("Получение локации начинок")
     public int getFillingsLocation() {
         return Integer.valueOf(webDriver.findElements(INGREDIENTS_CONTAINER).get(2).getLocation().getY());
     }
 
-    // Получение локации соусов
+    @Step("Получение локации соусов")
     public int getSaucesLocation() {
         return Integer.valueOf(webDriver.findElements(INGREDIENTS_CONTAINER).get(1).getLocation().getY());
     }
 
-    // Получение локации булочек
+    @Step("Получение локации булочек")
     public int getBunsLocation() {
         return Integer.valueOf(webDriver.findElements(INGREDIENTS_CONTAINER).get(0).getLocation().getY());
     }
 
-    // Метод, чтобы дождаться прогрузки элемента на странице
+    @Step("Метод, чтобы дождаться прогрузки элемента на странице")
     private void waitForScroll(int position) {
         new WebDriverWait(webDriver, 35)
                 .until(webDriver -> {
@@ -106,7 +107,7 @@ public class MainPage {
                 );
     }
 
-    // Метод для получения локации ингредиентов
+    @Step("Метод для получения локации ингредиентов")
     public int getIngredientTitleExpectedLocation() {
         return Integer.valueOf(webDriver.findElements(INGREDIENTS_BUTTONS).get(0).getLocation().getY()
                 + webDriver.findElements(INGREDIENTS_BUTTONS).get(0).getSize().getHeight()

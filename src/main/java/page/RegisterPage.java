@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -26,38 +27,38 @@ public class RegisterPage {
         this.webDriver = webDriver;
     }
 
-    // Открытие страницы регистрации
+    @Step("Открытие страницы регистрации")
     public void openPage() {
         webDriver.get(REGISTER_PAGE_URL);
     }
 
     // Заполнение полей для регистрации
-    // Внесение данных в поле "Email"
+    @Step("Внесение данных в поле 'Email'")
     public void inputEmailField(String email) {
         webDriver.findElement(emailField).sendKeys(email);
     }
 
-    // Внесение данных в поле "Имя"
+    @Step("Внесение данных в поле 'Имя'")
     public void inputNameField(String name) {
         webDriver.findElement(nameField).sendKeys(name);
     }
 
-    // Внесение данных в поле "Пароль"
+    @Step("Внесение данных в поле 'Пароль'")
     public void inputPasswordField(String password) {
         webDriver.findElement(passwordField).sendKeys(password);
     }
 
-    // Нажатие на кнопку "Зарегистрироваться"
+    @Step("Нажатие на кнопку 'Зарегистрироваться'")
     public void registerButtonClick() {
         webDriver.findElement(registerButton).click();
     }
 
-    // Нажатие на кнопку "Войти"
+    @Step("Нажатие на кнопку 'Войти'")
     public void logInButtonClick() {
         webDriver.findElement(loginButton).click();
     }
 
-    // Метод проверки, отобразилась ли надпись "Некорректный пароль"
+    @Step("Метод проверки, отобразилась ли надпись 'Некорректный пароль'")
     public boolean isIncorrectPasswordLabelAppeared() {
         return webDriver.findElement(loginError).isDisplayed();
     }

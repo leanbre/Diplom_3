@@ -1,26 +1,55 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import page.MainPage;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(Parameterized.class)
 public class ConstructorTest {
 
     private static final String BASE_URL = "https://stellarburgers.nomoreparties.site";
     WebDriver webDriver;
+    // Параметр для браузера
+    @Parameterized.Parameter
+    public String browserName;
+
+    @Parameterized.Parameters(name = "Браузер: {0}")
+    public static Object[] data() {
+        return new Object[] {
+                "chrome",
+                "yandex"
+        };
+    }
 
     @Before
     public void before() {
         RestAssured.baseURI = BASE_URL;
-        // Запуск ChromeDriver
-        webDriver = new ChromeDriver();
+        // И настройка браузера в зависимости от параметра
+        if (browserName.equals("chrome")) {
+            System.setProperty("webdriver.chrome.driver", "/Users/leanbre/Downloads/chromedriver-mac-arm64/chromedriver");
+            webDriver = new ChromeDriver();
+        } else if (browserName.equals("yandex")) {
+            System.setProperty("webdriver.chrome.driver", "/Users/leanbre/Downloads/chromedriver-mac-ya/chromedriver");
+            ChromeOptions options = new ChromeOptions();
+            options.setBinary("/Applications/Yandex.app/Contents/MacOS/Yandex");
+            webDriver = new ChromeDriver(options);
+        }
         webDriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+    }
+
+    @After
+    public void after() {
+        webDriver.quit();
     }
 
     @Test

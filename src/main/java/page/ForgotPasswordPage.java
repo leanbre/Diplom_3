@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,7 +20,7 @@ public class ForgotPasswordPage {
     }
 
     // Действия на странице
-    // Открытие страницы восстановления пароля
+    @Step("Открытие страницы восстановления пароля")
     public void openPage() {
         webDriver.get(FORGOT_PASSWORD_URL);
         // Дожидаемся появления кнопки с "Войти в аккаунт"
@@ -27,7 +28,7 @@ public class ForgotPasswordPage {
                 .until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
-    // Нажатие на кнопку "Войти"
+    @Step("Нажатие на кнопку 'Войти'")
     public void loginButtonClick() {
         webDriver.findElement(LOGIN_BUTTON).click();
     }

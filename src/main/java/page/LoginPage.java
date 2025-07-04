@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,7 +24,7 @@ public class LoginPage {
     }
 
     // Действия на странице
-    // Открытие основной страницы
+    @Step("Открытие основной страницы")
     public void openPage() {
         webDriver.get(LOGIN_URL);
         // Дожидаемся появления кнопки с "Войти в аккаунт"
@@ -31,17 +32,17 @@ public class LoginPage {
                 .until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
-    // Внесение данных в поле "Email"
+    @Step("Внесение данных в поле 'Email'")
     public void inputEmailField(String email) {
         webDriver.findElement(EMAIL).sendKeys(email);
     }
 
-    // Внесение данных в поле "Пароль"
+    @Step("Внесение данных в поле 'Пароль'")
     public void inputPasswordField(String password) {
         webDriver.findElement(PASSWORD).sendKeys(password);
     }
 
-    // Нажатие кнопки "Войти"
+    @Step("Нажатие кнопки 'Войти'")
     public void loginButtonClick() {
         webDriver.findElement(LOGIN_BUTTON).click();
     }
