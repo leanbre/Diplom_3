@@ -1,4 +1,5 @@
 import client.UserClient;
+import config.DriverFactory;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
@@ -10,8 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import page.RegisterPage;
 
 import java.util.concurrent.TimeUnit;
@@ -57,16 +56,8 @@ public class RegisterTest {
         Response registerResponse = UserClient.registerUser(user);
         // Прихраниваем токен для последующей чистки в конце тестов
         token = registerResponse.path("accessToken");
-        // И настройка браузера в зависимости от параметра
-        if (browserName.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "/Users/leanbre/Downloads/chromedriver-mac-arm64/chromedriver");
-            webDriver = new ChromeDriver();
-        } else if (browserName.equals("yandex")) {
-            System.setProperty("webdriver.chrome.driver", "/Users/leanbre/Downloads/chromedriver-mac-ya/chromedriver");
-            ChromeOptions options = new ChromeOptions();
-            options.setBinary("/Applications/Yandex.app/Contents/MacOS/Yandex");
-            webDriver = new ChromeDriver(options);
-        }
+        // И настройка браузера
+        webDriver = DriverFactory.createDriver();
         webDriver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
     }
 
